@@ -1,20 +1,141 @@
 <!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jättefint formulär</title>
-    <script defer src="main.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Formulär-uppgift</title>
   <style>
+    body {
+      background-color: #1e90ff; /* blå bakgrund */
+      color: black; /* svart text */
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-family: "Cambria Math", "Times New Roman", serif; /* math italic-stil */
+      font-style: italic;
+      text-align: center;
+    }
+
     form {
-      font-size: 1rem;
-      input {
-        font-size: 1rem;
-      }
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      margin-top: 5px;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: white;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    /* Slider + output bredvid varandra */
+    .range-container {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* mellanrum */
+      margin-top: 5px;
+    }
+
+    input[type="range"] {
+      accent-color: black; /* svart slider */
+      flex: 1; /* tar upp all plats */
+    }
+
+    output {
+      font-weight: bold;
+      font-size: 1.1em;
+      padding: 5px 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: white;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: black;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #333;
     }
   </style>
-  <body>
-    <form id="basicForm"></form>
-  </body>
+</head>
+<body>
+  <div>
+    <h1>Mitt Formulär</h1>
+    <form id="myForm">
+      <!-- Textfält -->
+      <label for="username">Namn:</label>
+      <input type="text" id="username" name="username" autocomplete="name">
+
+      <!-- Emailfält -->
+      <label for="email">E-post:</label>
+      <input type="email" id="email" name="email" autocomplete="email">
+
+      <!-- Range + output bredvid -->
+      <label for="amount">Belopp:</label>
+      <div class="range-container">
+        <input type="range" id="amount" name="amount" min="0" max="100" value="0">
+        <output id="result">0</output>
+      </div>
+
+      <!-- Submit-knapp -->
+      <button type="submit">Skicka</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("myForm");
+    const amountInput = document.getElementById("amount");
+    const resultOutput = document.getElementById("result");
+
+    // Uppdatera output när man ändrar slider
+    amountInput.addEventListener("input", () => {
+      resultOutput.value = amountInput.value;
+    });
+
+    // När man trycker submit
+    form.addEventListener("submit", (event) => {
+      event.preventDefault(); // förhindra att sidan laddas om
+
+      const data = {
+        username: form.username.value,
+        email: form.email.value,
+        amount: form.amount.value,
+      };
+
+      console.log(data);
+    });
+  </script>
+</body>
 </html>
+
